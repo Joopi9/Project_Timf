@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.timf.repository.compensation.CompensationXmlRepository">
+	
+	<insert id="insertCompensation">
+		INSERT INTO compensation(
+			reg_date
+			, voc_id)
+        VALUES(NOW()
+       		 , #{vocId}
+		)
+	</insert>
+
+	<update id="updateCompensation">
+		UPDATE compensation
+		SET compensation_state = #{compensationState}
+		WHERE compensation_id = #{compensationId}
+	</update>
+
+	<select id="selectCompensationList" resultType="com.timf.model.CompensationVO">
+		SELECT compensation_id
+			 , voc_id
+			 , compensation_fine
+			 , reg_date
+		  FROM compensation
+	</select>
+</mapper>

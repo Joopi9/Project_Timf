@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.timf.repository.voc.VocXmlRepository">
+
+	<select id="getVocList" resultType="com.timf.model.VocVO">
+		SELECT voc_id
+			 , voc_content
+			 , comp_claim_flag
+			 , reg_date
+			 , impute_id
+			 , voc_state
+		  FROM voc
+	</select>
+	
+	<insert id="insertVoc" parameterType="com.timf.model.VocVO" keyColumn="voc_id"
+	keyProperty="vocId" useGeneratedKeys="true">
+		INSERT INTO
+		  voc(  voc_content
+			 , comp_claim_flag
+			 , reg_date
+			 , impute_id
+			 , voc_state		  
+			 )
+	   VALUES(#{vocContent}
+	   		 , #{compClaimFlag}
+	   		 , NOW()
+	   		 , #{imputeId}
+	   		 , #{vocState}
+			 )
+	</insert>
+
+	<select id="selectVocId" resultType="com.timf.model.VocVO">
+		SELECT voc_id
+		  FROM voc
+		 WHERE 1 = 1
+		   AND com_claim_flag = 'Y'
+	</select>
+</mapper>

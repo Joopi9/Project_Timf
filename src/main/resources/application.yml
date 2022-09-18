@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/timfdb?serverTimezone=UTC&characterEncoding=UTF-8
+    password: 200356family
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
+mybatis:
+  mapper-locations: classpath*:repository/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true

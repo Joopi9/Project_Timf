@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.timf.repository.penalty.PenaltyXmlRepository">
+
+	<insert id="insertPenalty" parameterType="com.timf.model.PenaltyVO">
+		INSERT INTO PENALTY(
+	  		 compensation_id
+	  		 , compensation_fine
+	  		 , impute_approval_yn
+	  		 , reg_date
+	  		 , agent_driver_id
+	  		 , penalty_state
+	  		 )
+	    VALUES
+	    	 (
+	    	 #{compensationId}
+			 , #{compensationFine}
+			 , #{imputeApprovalYn}
+			 , NOW()
+			 , #{agentDriverId}
+			 , '2PntN'
+			 )
+	</insert>
+	<update id="updatePenalty" parameterType="com.timf.model.PenaltyVO">
+			update penalty
+			set impute_approval_yn = #{imputeApprovalYn}
+			, penalty_state = #{penaltyState}
+			WHERE penalty_id
+	</update>
+</mapper>

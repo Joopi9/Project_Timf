@@ -27,13 +27,6 @@ public class VocServiceImpl implements VocService {
      *************/
     @Override
     public List<VocVO> selectVocList() {
-//    	List<PenaltyVO> penaltyList = penaltyVocService.selectPenalty();
-//    	List<Object> list = new ArrayList<>();
-//    	
-//    	list.add(vocList);
-//    	list.add(penaltyList);
-//    	
-//    	map.put("data", list);
         return vocXmlRepository.selectVocList();
     }
 

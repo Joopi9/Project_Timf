@@ -7,7 +7,6 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
 public class PenaltyVO {
 	@ApiModelProperty(position=1, value="귀책Id")
 	private int penaltyId;

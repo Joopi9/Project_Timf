@@ -8,14 +8,17 @@ import com.timf.model.PenaltyVO;
 
 @Mapper
 public interface PenaltyXmlRepository {
+	
 	/*************
 	 * 패널티 등록 API
 	 *************/
 	int insertPenalty(PenaltyVO penalty);
+	
 	/*************
 	 * 패널티 수정 API
 	 *************/
 	int updatePenalty(PenaltyVO penalty);
+	
 	/*************
 	 * 패널티 조회 API
 	 *************/

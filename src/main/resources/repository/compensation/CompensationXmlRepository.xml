@@ -31,4 +31,5 @@
 	 LEFT JOIN code b
 			ON a.compensation_state = b.code_id
 	</select>
+	
 </mapper>

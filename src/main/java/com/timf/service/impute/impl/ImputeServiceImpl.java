@@ -1,17 +1,18 @@
 package com.timf.service.impute.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.timf.model.ImputeVO;
 import com.timf.repository.impute.ImputeXmlRepository;
 import com.timf.service.impute.ImputeService;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class ImputeServiceImpl implements ImputeService{
 	
-	@Autowired
-	private ImputeXmlRepository imputeXmlRepository;
+	private final ImputeXmlRepository imputeXmlRepository;
 
 	/************
 	 *귀책 당사자 등록

@@ -29,5 +29,5 @@ public class CompensationController {
     public Response selectCompensationList() {
         return new Response(compensationService.selectCompensationList());
     }
-
+    
 }

@@ -7,8 +7,9 @@
 	   impute( 
 			   impute_type
 			 , reg_date
-		) VALUES(
-	   		  #{imputeType}
+			 )
+	   VALUES(
+	   		   #{imputeType}
 	   		 , now()
 	   		 )
 	</insert>

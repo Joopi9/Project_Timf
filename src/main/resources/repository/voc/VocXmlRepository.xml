@@ -26,7 +26,7 @@
 	 LEFT JOIN code c
 			ON v.voc_state = c.code_id
 	 LEFT JOIN impute i
-			ON v.impute_id = i.impute_id;
+			ON v.impute_id = i.impute_id
 	</select>
 	
 	<insert id="insertVoc" parameterType="com.timf.model.VocVO" keyColumn="voc_id"

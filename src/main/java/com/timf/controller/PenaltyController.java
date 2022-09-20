@@ -38,4 +38,5 @@ public class PenaltyController {
     public Response agreePenalty(@RequestBody PenaltyVO penaltyVO) {
         return new Response(penaltyService.agreePenalty(penaltyVO));
     }
+    
 }

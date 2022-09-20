@@ -22,7 +22,6 @@ public class VocController {
 		this.vocService = vocService;
 	}
 	
-	
 	/************
 	 *voc 목록 API 
 	 ************/
@@ -33,6 +32,7 @@ public class VocController {
 		return new Response(vocService.selectVocList());
 
 	}
+	
 	/************
 	 *voc 등록 API 
 	 ************/

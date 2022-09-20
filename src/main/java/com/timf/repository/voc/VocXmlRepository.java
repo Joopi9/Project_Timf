@@ -14,10 +14,12 @@ public interface VocXmlRepository {
 	 voc 목록 조회 
 	**************/
 	List<VocVO> selectVocList();
+	
 	/*************
 	 voc 등록
 	**************/
 	int insertVoc(VocVO vocVo);
+	
 	/*************
 	 voc 상태 수정
 	**************/

@@ -29,5 +29,5 @@ public class VocVO {
 	private String imputeType;
 	@ApiModelProperty(position=7, value="등록일")
 	private String regDate;
-	
+
 }

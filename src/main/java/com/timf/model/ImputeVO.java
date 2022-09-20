@@ -9,9 +9,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class ImputeVO {
 
 	@ApiModelProperty(position=1, value="귀책ID")

@@ -7,7 +7,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 public class CompensationVO {
-
+	
 	@ApiModelProperty(position=1, value="배상ID")
 	private int compensationId;
 	@ApiModelProperty(position=4, value="vocID")

@@ -1,44 +1,41 @@
 package com.timf.controller;
 
-import com.timf.model.PenaltyVO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.timf.config.Response;
+import com.timf.model.PenaltyVO;
 import com.timf.service.penalty.PenaltyService;
 
 import io.swagger.annotations.Api;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @Api(tags = {"패널티API"},
         value = "패널티API"
 )
 @RequestMapping("/penalty")
+@RequiredArgsConstructor
 public class PenaltyController {
 
-    @Autowired
-    private PenaltyService penaltyService;
+    private final PenaltyService penaltyService;
 
-    /***************************
-     * TO-DO
-     * 0) 배상별로 패널티 기사 확인 컬럼 2PntN인 거 조회
-     * 1) 패널티가 등록되면 기사 확인이 필요하다
-     * 	  - 확인 api(수정)
-     *    - 패널티상태 컬럼 확인으로 수정
-     *    - 인정/불인정 컬럼 수정
-     * 2) 패널티 불인정 시 이의제기
-     ****************************/
-
+    /****************
+     * 패널티 등록 API
+     ****************/
     @PostMapping
-    public int registerPenalty(@RequestBody PenaltyVO penaltyVO) {
-        return penaltyService.insertPenalty(penaltyVO);
+    public Response insertPenalty(@RequestBody PenaltyVO penaltyVO) {
+        return new Response(penaltyService.insertPenalty(penaltyVO));
     }
 
-    /***************************
-     ****************************/
-
+    /****************
+     * 기사의 패널티 인정여부
+     ****************/
     @PatchMapping
-    public int agreePenalty(@RequestBody PenaltyVO penaltyVO) {
-        return penaltyService.agreePenalty(penaltyVO);
-
+    public Response agreePenalty(@RequestBody PenaltyVO penaltyVO) {
+        return new Response(penaltyService.agreePenalty(penaltyVO));
     }
 }

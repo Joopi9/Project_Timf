@@ -2,37 +2,61 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.timf.repository.voc.VocXmlRepository">
 
-	<select id="getVocList" resultType="com.timf.model.VocVO">
-		SELECT voc_id
-			 , voc_content
-			 , comp_claim_flag
-			 , reg_date
-			 , impute_id
-			 , voc_state
-		  FROM voc
+	<select id="selectVocList" resultType="com.timf.model.VocVO">
+		SELECT v.voc_id
+			 , v.impute_id
+			 , v.voc_content
+			 , i.impute_type 
+			 , v.reg_date
+			 , c.code_nm AS vocIssue
+			 , v.voc_state
+			 , CASE 
+			   WHEN v.comp_request_yn = 'Y'
+	  		   THEN '배상요청'
+      		   WHEN v.comp_request_yn = 'N'
+      		   THEN '배상미요청'
+      		 	END AS compRequestYn
+			 , CASE 
+			   WHEN i.impute_type	  = '0ImpD'
+	           THEN '운송사귀책' 
+	           WHEN i.impute_type	  = '0ImpC'
+	           THEN '고객사귀책' 
+	            END AS imputeNm
+		  FROM voc v
+	 LEFT JOIN code c
+			ON v.voc_state = c.code_id
+	 LEFT JOIN impute i
+			ON v.impute_id = i.impute_id;
 	</select>
 	
 	<insert id="insertVoc" parameterType="com.timf.model.VocVO" keyColumn="voc_id"
 	keyProperty="vocId" useGeneratedKeys="true">
 		INSERT INTO
-		  voc(  voc_content
-			 , comp_claim_flag
+		  voc( voc_content
+			 , comp_request_yn
 			 , reg_date
 			 , impute_id
-			 , voc_state		  
+			 , voc_state
 			 )
-	   VALUES(#{vocContent}
-	   		 , #{compClaimFlag}
+	   VALUES( #{vocContent}
+	   		 , #{compRequestYn}
 	   		 , NOW()
-	   		 , #{imputeId}
-	   		 , #{vocState}
+	   		 , (SELECT MAX(impute_id)
+	   		 	  FROM impute)
+	   		 , '1VocW'
 			 )
 	</insert>
+	
+	<update id="updateVocState" parameterType="com.timf.model.CompensationVO">
+		UPDATE voc 
+		   SET voc_state = #{compensationState}
+		   	 , reg_date	 = NOW()
+		 WHERE voc_id	 = (SELECT voc_id 
+		 					  FROM (SELECT c.voc_id 
+		  							  FROM compensation c
+          						 LEFT JOIN timfdb.voc v
+        								ON c.voc_id = v.voc_id
+         							 WHERE c.compensation_id = #{compensationId})as t)
+	</update>
 
-	<select id="selectVocId" resultType="com.timf.model.VocVO">
-		SELECT voc_id
-		  FROM voc
-		 WHERE 1 = 1
-		   AND com_claim_flag = 'Y'
-	</select>
 </mapper>

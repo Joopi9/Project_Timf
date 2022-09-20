@@ -1,5 +1,6 @@
 package com.timf.service.voc;
 
+import com.timf.model.CompensationVO;
 import com.timf.model.VocVO;
 
 import java.util.List;
@@ -8,16 +9,15 @@ public interface VocService {
 
 	/************
 	 *voc 목록 API 
-	 * @throws Exception 
 	 ************/
-	public List<VocVO> getVocList();
+	List<VocVO> selectVocList();
 	/************
 	 *voc 등록 API 
 	 ************/
-	public int insertVoc(VocVO vocVo);
+	int insertVoc(VocVO vocVo);
 	/************
-	 *vocId 조회
+	 *voc 상태 수정
 	 ************/
-//	public HashMap<String, Object> selectVocId();
+	int updateVocState(CompensationVO compensationVo);
 
 }

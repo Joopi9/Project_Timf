@@ -3,15 +3,12 @@
 <mapper namespace="com.timf.repository.impute.ImputeXmlRepository">
 	
 	<insert id="insertImpute" parameterType="com.timf.model.ImputeVO">
-		INSERT INTO impute (
-			 , client_id
-			 , driver_id
-			 , impute_party
+		INSERT INTO 
+	   impute( 
+			   impute_type
 			 , reg_date
 		) VALUES(
-		     #{clientId}
-	   		 , #{driverId}
-	   		 , #{imputeParty}
+	   		  #{imputeType}
 	   		 , now()
 	   		 )
 	</insert>

@@ -1,24 +1,23 @@
 package com.timf.service.penalty.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.timf.model.CompensationVO;
-import com.timf.service.compensation.CompensationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.timf.model.CompensationVO;
 import com.timf.model.PenaltyVO;
 import com.timf.repository.penalty.PenaltyXmlRepository;
+import com.timf.service.compensation.CompensationService;
 import com.timf.service.penalty.PenaltyService;
+import com.timf.service.voc.VocService;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class PenaltyServiceImpl implements PenaltyService {
 
-    @Autowired
-    private PenaltyXmlRepository penaltyXmlRepository;
-    @Autowired
-    private CompensationService compensationService;
+    private final PenaltyXmlRepository penaltyXmlRepository;
+    private final CompensationService compensationService;
+    private final VocService vocService;
 
     /*************
      * 패널티 등록 API
@@ -28,20 +27,22 @@ public class PenaltyServiceImpl implements PenaltyService {
         return penaltyXmlRepository.insertPenalty(penaltyVo);
     }
 
+    /*************
+     * 패널티 승인 API
+     *************/
     @Override
     public int agreePenalty(PenaltyVO penaltyVo) {
         String agree = penaltyVo.getImputeApprovalYn();
         if (agree != null) {
-            CompensationVO compensationVO = new CompensationVO();
-            compensationVO.setCompensationId(penaltyVo.getCompensationId());
-            compensationVO.setCompensationFine(penaltyVo.getCompensationFine());
-            compensationVO.setCompensationState(agree.equals("Y") ? "1VocA" : "1VocD");
+            CompensationVO compensationVo = new CompensationVO();
+            compensationVo.setCompensationId(penaltyVo.getCompensationId());
+            compensationVo.setCompensationFine(penaltyVo.getCompensationFine());
+            compensationVo.setCompensationState(agree.equals("Y") ? "1VocA" : "1VocD");
             penaltyVo.setPenaltyState(agree.equals("Y") ? "2PntY" : "2PntD");
-            compensationService.updateCompensation(compensationVO);
-            return penaltyXmlRepository.updatePenalty(penaltyVo);
+            compensationService.updateCompensation(compensationVo);
+            vocService.updateVocState(compensationVo);
         }
-        return 0;
-
+        return penaltyXmlRepository.updatePenalty(penaltyVo);
     }
 
 }

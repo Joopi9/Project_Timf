@@ -18,13 +18,7 @@ public class ImputeServiceImpl implements ImputeService{
 	 ************/
 	@Override
 	public int insertImpute(ImputeVO imputeVo){
-		int result = 0;
-		try {
-			result = imputeXmlRepository.insertImpute(imputeVo);
-		}catch(Exception e) {
-			e.getMessage();
-		}
-		return result;
+		return imputeXmlRepository.insertImpute(imputeVo);
 	}
 
 }

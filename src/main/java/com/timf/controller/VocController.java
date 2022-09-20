@@ -26,33 +26,22 @@ public class VocController {
 	/************
 	 *voc 목록 API 
 	 ************/
-	@ApiOperation(httpMethod ="GET", value="voc 조회", notes="voc 조회 API")
-	@GetMapping
-	public Response getVoList() {
+	@ApiOperation(value="voc 조회", notes="voc 조회 API")
+	@RequestMapping(method=RequestMethod.GET)
+	public Response selectVoList() {
 			
-		return new Response(vocService.getVocList());
+		return new Response(vocService.selectVocList());
 
 	}
 	/************
 	 *voc 등록 API 
 	 ************/
 	@ApiOperation(value="voc 등록", notes="voc 등록 API")
-	@PostMapping
-	public int insertVoc(@RequestBody VocVO vocVo){
-		return  vocService.insertVoc(vocVo);
+	@RequestMapping(method=RequestMethod.POST)
+	public Response insertVoc(@RequestBody VocVO vocVo){
+		int result = vocService.insertVoc(vocVo);
+		String message = result < 0 ? "FAIL" : "SUCCESS";
+		return  new Response(message);
 	}
-
-
-	
-	/*****************
-	 *배상 요청한 vocID조회 
-	 *****************/
-//	@ApiOperation(value="배상 요청이 있는 vocId 조회", notes="배상 요청이 있는 vocId 조회 API")
-//	@RequestMapping(method=RequestMethod.GET, value="/voc/id", produces=MediaType.APPLICATION_JSON_VALUE)
-//	public HashMap<String,Object> getVocId(){
-//		HashMap<String, Object> result = vocService.selectVocId();
-//		
-//		return result;
-//	}
 	
 }

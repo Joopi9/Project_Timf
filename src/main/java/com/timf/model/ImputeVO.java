@@ -1,21 +1,24 @@
 package com.timf.model;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ImputeVO {
 
 	@ApiModelProperty(position=1, value="귀책ID")
 	private int imputeId;
-	@ApiModelProperty(position=2, value="고객ID")
-	private int clientId;
-	@ApiModelProperty(position=3, value="기사ID")
-	private int driverId;
-	@ApiModelProperty(position=4, value="귀책당사자ID")
-	private String imputeParty;
+	@ApiModelProperty(position=4, value="귀책당사자")
+	private String imputeType;
+	@ApiModelProperty(position=2, value="등록일")
+	private String regDate;
+	
 }

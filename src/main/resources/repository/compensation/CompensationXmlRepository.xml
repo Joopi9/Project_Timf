@@ -3,25 +3,32 @@
 <mapper namespace="com.timf.repository.compensation.CompensationXmlRepository">
 	
 	<insert id="insertCompensation">
-		INSERT INTO compensation(
-			reg_date
-			, voc_id)
-        VALUES(NOW()
+		INSERT INTO
+ compensation( reg_date
+			 , voc_id
+			 , compensation_state)
+       VALUES( NOW()
        		 , #{vocId}
-		)
+       		 , #{compensationState}
+			 )
 	</insert>
 
 	<update id="updateCompensation">
 		UPDATE compensation
-		SET compensation_state = #{compensationState}
-		WHERE compensation_id = #{compensationId}
+		   SET compensation_state = #{compensationState}
+			 , compensation_fine  = #{compensationFine}
+		 WHERE compensation_id 	  = #{compensationId}
 	</update>
 
 	<select id="selectCompensationList" resultType="com.timf.model.CompensationVO">
-		SELECT compensation_id
-			 , voc_id
-			 , compensation_fine
-			 , reg_date
-		  FROM compensation
+		SELECT a.compensation_id
+			 , a.voc_id
+			 , a.compensation_fine
+			 , a.compensation_state
+			 , a.reg_date
+			 , b.code_nm as compStateName
+		  FROM compensation a
+	 LEFT JOIN code b
+			ON a.compensation_state = b.code_id
 	</select>
 </mapper>

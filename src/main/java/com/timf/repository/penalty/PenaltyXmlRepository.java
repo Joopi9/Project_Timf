@@ -16,5 +16,9 @@ public interface PenaltyXmlRepository {
 	 * 패널티 수정 API
 	 *************/
 	int updatePenalty(PenaltyVO penalty);
+	/*************
+	 * 패널티 조회 API
+	 *************/
+	List<PenaltyVO> selectPenalty();
 
 }

@@ -1,32 +1,40 @@
 package com.timf.service.voc.impl;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.timf.model.CompensationVO;
+import com.timf.model.ImputeVO;
 import com.timf.model.VocVO;
 import com.timf.repository.voc.VocXmlRepository;
 import com.timf.service.compensation.CompensationService;
 import com.timf.service.impute.ImputeService;
 import com.timf.service.voc.VocService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class VocServiceImpl implements VocService {
 
-    @Autowired
-    private VocXmlRepository vocXmlRepository;
-    @Autowired
-    private ImputeService imputeService;
-    @Autowired
-    private CompensationService compensationService;
-
+    private final VocXmlRepository vocXmlRepository;
+    private final ImputeService imputeService;
+    private final CompensationService compensationService;
+    
     /*************
      voc 목록 조회
      *************/
     @Override
-    public List<VocVO> getVocList() {
-        return vocXmlRepository.getVocList();
+    public List<VocVO> selectVocList() {
+//    	List<PenaltyVO> penaltyList = penaltyVocService.selectPenalty();
+//    	List<Object> list = new ArrayList<>();
+//    	
+//    	list.add(vocList);
+//    	list.add(penaltyList);
+//    	
+//    	map.put("data", list);
+        return vocXmlRepository.selectVocList();
     }
 
     /*************
@@ -34,22 +42,20 @@ public class VocServiceImpl implements VocService {
      *************/
     @Override
     public int insertVoc(VocVO vocVo) {
-        int result;
-        vocVo.setVocState(vocVo.getCompClaimFlag().equals("Y") ? "1VocD" : "1VocW");
-
-        String compensationState = "";
-        if (vocVo.getImputeType().equals("D")) {
-            compensationState = "0ImpF";
-        } else if (vocVo.getImputeType().equals("C")) {
-            compensationState = "0ImpC";
-        }
-        // voc테이블 삽입
+    	int result;
+    	ImputeVO imputeVo = new ImputeVO();
+        vocVo.setImputeType(vocVo.getCompRequestYn().equals("Y") ? "0ImpD" : "0ImpC");
+        String imputeParty = vocVo.getImputeType();
+        imputeVo.setImputeType(imputeParty);
+       
+        imputeService.insertImpute(imputeVo);
+      
         result = vocXmlRepository.insertVoc(vocVo);
 
-        if (vocVo.getCompClaimFlag().equals("Y")) {
+        if (vocVo.getCompRequestYn().equals("Y")) {
             CompensationVO compensationVO = CompensationVO.builder()
                     .vocId(vocVo.getVocId())
-                    .compensationState(compensationState)
+                    .compensationState("2PntN")
                     .build();
 
             compensationService.insertCompensation(compensationVO);
@@ -57,5 +63,13 @@ public class VocServiceImpl implements VocService {
 
         return result;
     }
+
+    /*************
+    voc 상태 수정
+    *************/
+	@Override
+	public int updateVocState(CompensationVO compensationVo) {
+	return vocXmlRepository.updateVocState(compensationVo);
+	}
 
 }

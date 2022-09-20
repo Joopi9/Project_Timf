@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.timf.repository.penalty.PenaltyXmlRepository">
-
 	<insert id="insertPenalty" parameterType="com.timf.model.PenaltyVO">
-		INSERT INTO PENALTY(
-	  		 compensation_id
-	  		 , compensation_fine
-	  		 , impute_approval_yn
-	  		 , reg_date
-	  		 , agent_driver_id
-	  		 , penalty_state
-	  		 )
-	    VALUES
-	    	 (
-	    	 #{compensationId}
+		INSERT INTO 
+	  PENALTY( compensation_id
+			 , compensation_fine
+			 , impute_approval_yn
+			 , reg_date
+			 , agent_driver_id
+			 , penalty_state
+			 )
+	   VALUES
+		   	 ( #{compensationId}
 			 , #{compensationFine}
 			 , #{imputeApprovalYn}
 			 , NOW()
@@ -21,10 +19,26 @@
 			 , '2PntN'
 			 )
 	</insert>
+	
 	<update id="updatePenalty" parameterType="com.timf.model.PenaltyVO">
-			update penalty
-			set impute_approval_yn = #{imputeApprovalYn}
-			, penalty_state = #{penaltyState}
-			WHERE penalty_id
+		UPDATE penalty
+		   SET impute_approval_yn = #{imputeApprovalYn}
+			 , penalty_state 	  = #{penaltyState}
+		 WHERE penalty_id 		  = #{penaltyId}
 	</update>
+	
+<!-- <select id="selectPenalty" resultType="com.timf.model.PenaltyVO">
+		SELECT p.penalty_id
+			 , p.compensation_id
+		     , p.compensation_fine
+		     , p.impute_approval_yn
+		     , p.agent_driver_id
+		     , p.penalty_state
+		     , p.reg_date
+		     , c.code_nm as penaltyType
+		  FROM penalty p
+		  LEFT JOIN code c
+			ON p.penalty_state = c.code_id;
+		
+	</select> -->
 </mapper>

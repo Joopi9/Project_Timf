@@ -10,7 +10,7 @@
 	</appender>
 	<!-- // CONSOLE -->
 	
-	<root level="info">
+	<root level="debug">
 		<appender-ref ref="CONSOLE" />
 	</root>
 	<logger name="access-log" level="info" additivity="false">

@@ -6,10 +6,10 @@
 		SELECT v.voc_id
 			 , v.impute_id
 			 , v.voc_content
-			 , i.impute_type 
-			 , v.reg_date
-			 , c.code_nm AS vocIssue
 			 , v.voc_state
+			 , v.reg_date
+			 , i.impute_type 
+			 , c.code_nm AS vocIssue
 			 , CASE 
 			   WHEN v.comp_request_yn = 'Y'
 	  		   THEN '배상요청'

@@ -4,12 +4,10 @@
 	
 	<insert id="insertImpute" parameterType="com.timf.model.ImputeVO">
 		INSERT INTO 
-	   impute( 
-			   impute_type
+	   impute( impute_type
 			 , reg_date
 			 )
-	   VALUES(
-	   		   #{imputeType}
+	   VALUES( #{imputeType}
 	   		 , now()
 	   		 )
 	</insert>

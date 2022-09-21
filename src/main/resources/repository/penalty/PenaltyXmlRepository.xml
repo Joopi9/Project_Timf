@@ -27,18 +27,4 @@
 		 WHERE penalty_id 		  = #{penaltyId}
 	</update>
 	
-<!-- <select id="selectPenalty" resultType="com.timf.model.PenaltyVO">
-		SELECT p.penalty_id
-			 , p.compensation_id
-		     , p.compensation_fine
-		     , p.impute_approval_yn
-		     , p.agent_driver_id
-		     , p.penalty_state
-		     , p.reg_date
-		     , c.code_nm as penaltyType
-		  FROM penalty p
-		  LEFT JOIN code c
-			ON p.penalty_state = c.code_id;
-		
-	</select> -->
 </mapper>

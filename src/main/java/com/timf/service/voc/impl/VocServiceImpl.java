@@ -29,7 +29,7 @@ public class VocServiceImpl implements VocService {
     public List<VocVO> selectVocList() {
         return vocXmlRepository.selectVocList();
     }
-
+    
     /*************
      voc 등록
      *************/

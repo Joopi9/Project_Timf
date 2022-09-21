@@ -1,10 +1,7 @@
 package com.timf.model;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
@@ -29,5 +26,5 @@ public class VocVO {
 	private String imputeType;
 	@ApiModelProperty(position=7, value="등록일")
 	private String regDate;
-
+	
 }
